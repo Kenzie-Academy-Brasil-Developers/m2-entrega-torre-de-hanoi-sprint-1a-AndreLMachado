@@ -35,8 +35,8 @@ main.addEventListener('click', function (e) {
 });
 
 function choiceBar (x) {
-
-    if(x !== event.target.parentNode){
-        console.log(event.target.parentNode.appendChild(x))
-    }
+    console.log(event.currentTarget)
+    /* if(x !== event.target.parentNode){
+        //console.log(event.target.parentNode.appendChild(x))
+    } */
 }
