@@ -1,39 +1,42 @@
-const body = document.querySelector('.body');
-const start = document.querySelector('.start');
+const body = document.querySelector('body')
+const main = document.createElement('section')
+const disk = document.createElement('div')
 
-let selected = 0;
+main.classList.add('main');
+body.appendChild(main);
 
-const small_disk = document.createElement('div')           
-const medium_disk = document.createElement('div')          
-const big_disk = document.createElement('div')         
-
-small_disk.classList.add('small_disk')
-medium_disk.classList.add('medium_disk')
-big_disk.classList.add('big_disk')
-
-
-
-start.appendChild(big_disk);
-start.appendChild(medium_disk);
-start.appendChild(small_disk);  
-
-start.addEventListener('click', function() {
-    selected = event.target.classList.toggle('select');
-
-    if(selected === true) {
-        idSelect();
+function createBar() {
+    for(let i = 0; i < 3; i++){
+        let div = document.createElement('div');
+        main.appendChild(div)
     }
-    
+    main.childNodes[0].classList.add('start')
+    main.childNodes[1].classList.add('offSett')
+    main.childNodes[2].classList.add('end')
+}
+createBar()
 
+function createDisk (x) {
+    for(let i = 0; i < 3; i++){
+        let div = document.createElement('div');
+        main.childNodes[0].appendChild(div)
+    }
+    main.childNodes[0].children[0].classList.add('big_disk')
+    main.childNodes[0].children[1].classList.add('medium_disk')
+    main.childNodes[0].children[2].classList.add('small_disk')
+}
+createDisk ()
+
+main.addEventListener('click', function (e) {
+    let selectedDisk = event.target.parentNode.lastChild.classList.toggle('select')
+    if(selectedDisk === true){
+        choiceBar(event.target);
+    }
 });
 
-function idSelect(){
-    body.addEventListener('click', function(){
-    });
+function choiceBar (x) {
+
+    if(x !== event.target.parentNode){
+        console.log(event.target.parentNode.appendChild(x))
+    }
 }
-
-
-
-/* console.log(str1)
-console.log(str2)
-console.log(str3) */
