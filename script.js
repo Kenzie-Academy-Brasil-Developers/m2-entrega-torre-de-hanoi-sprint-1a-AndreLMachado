@@ -1,5 +1,5 @@
 const body = document.querySelector('body')
-const main = document.createElement('section')
+const main = document.createElement('main')
 const disk = document.createElement('div')
 
 main.classList.add('main');
@@ -7,7 +7,7 @@ body.appendChild(main);
 
 function createBar() {
     for(let i = 0; i < 3; i++){
-        let div = document.createElement('div');
+        let div = document.createElement('section');
         main.appendChild(div)
     }
     main.childNodes[0].classList.add('start')
@@ -27,16 +27,17 @@ function createDisk (x) {
 }
 createDisk ()
 
-main.addEventListener('click', function (e) {
-    let selectedDisk = event.target.parentNode.lastChild.classList.toggle('select')
-    if(selectedDisk === true){
-        choiceBar(event.target);
-    }
+body.addEventListener('click', function (e) {
+    if(event.target.tagName === "DIV"){
+        let addClassSelect = event.target.parentNode.lastChild.classList.toggle('select')
+        selectedDisk = event.target.parentNode.lastChild;
+    }     
+    main.addEventListener('click', choiceBar(selectedDisk));
 });
 
-function choiceBar (x) {
-    console.log(event.currentTarget)
-    /* if(x !== event.target.parentNode){
-        //console.log(event.target.parentNode.appendChild(x))
-    } */
-}
+function choiceBar (x) {   
+    if(event.target.tagName === "SECTION"){
+        event.target.appendChild(x).classList.remove('select');
+
+    } 
+} 
