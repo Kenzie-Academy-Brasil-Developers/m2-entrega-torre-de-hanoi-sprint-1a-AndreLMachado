@@ -27,8 +27,9 @@ function createDisk (x) {
 }
 createDisk ()
 
-main.addEventListener('click', function (e) {
+main.addEventListener('click', function (event) {
     let selectedDisk = event.target.parentNode.lastChild.classList.toggle('select')
+    console.log(selectedDisk)
     if(selectedDisk === true){
         choiceBar(event.target);
     }
