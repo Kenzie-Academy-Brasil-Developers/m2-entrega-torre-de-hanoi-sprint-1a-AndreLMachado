@@ -1,55 +1,113 @@
-:root {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 body {
-    background-color: #8d8d8f;
-    display: flex;
-    width: 80%;
-    justify-content: space-between;
-    align-items: center;
+    padding: 0;
+    margin: 0;
+    background-image: url(img/torre.jpg);
+    background-image: url(img/torre.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
-.main {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-.start, .offSett, .end {
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: center;
-    background-color: white;
-    width: 20px;
-    height: 500px;
-}
-
-.offSett {
-    background-color: blue;
-}
-
-.end {
-    background-color: red;
-}
-
-.small_disk, .medium_disk, .big_disk {
-    background-color: yellow;
-    width: 100px;
-    height: 50px;
-    margin-top: 5px;
-    border: 2px solid red;
-}
-
-.medium_disk {
+.contadorDeJogadas{
+    background-color: turquoise;
     width: 150px;
+    text-align: center;
+}
+.SelectDificult{
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.big_disk {
-    width: 200px;
+.SelectDificult button {
+    width: 150px;
+    border-radius: 15px;
+    margin-top: 20px;
+    padding: 10px;
 }
 
-.select {
+.inicioFim button:hover {
+    cursor: pointer;
+}
+
+.vitoria button:hover {
+    cursor: pointer;
+}
+
+.dificuldade {
+    background-color: turquoise;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.vitoria button {
+    width: 150px;
+    border-radius: 15px;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.vitoria  p {
+    font-size: 50px;
+    background-color: turquoise;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.vitoria {
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.board {
+    background-color: rgba(255, 255, 224, 0.308);
+    width: 100%;
+    height: 500px;
+    border: 3px solid salmon;
+    display: flex;
+    padding: 0 5px;
+    box-sizing: border-box;
+    margin-top: 100px;
+}
+
+.tower {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.tower-selected {
+    background-color: lightgreen;
+}
+
+.tower::after {
+    content: '.';
+    width: 10px;
+    height: 300px;
+    border-radius: 10px 10px 0 0;
+    position: absolute;
+    z-index: 0;
+    background-color: black;
+}
+
+.disc {
+    width: 100%;
+    background-color: red;
+    border: 2px solid black;
+    height: 20px;
+    margin-bottom: 5px;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    border-radius: 10px
+}
+
+.disc-selected {
+    border: 2px dotted black;
     margin-bottom: 20px;
 }

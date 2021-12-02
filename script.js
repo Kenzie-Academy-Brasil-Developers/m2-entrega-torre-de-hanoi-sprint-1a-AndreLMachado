@@ -1,43 +1,159 @@
+let origin = null
+let totalDiscs = null;
 const body = document.querySelector('body')
-const main = document.createElement('section')
-const disk = document.createElement('div')
+let contador = 0
+const contadorDeJogadas = document.createElement('p')
+contadorDeJogadas.classList.add('contadorDeJogadas')
+body.appendChild(contadorDeJogadas)
 
-main.classList.add('main');
-body.appendChild(main);
 
-function createBar() {
-    for(let i = 0; i < 3; i++){
-        let div = document.createElement('div');
-        main.appendChild(div)
-    }
-    main.childNodes[0].classList.add('start')
-    main.childNodes[1].classList.add('offSett')
-    main.childNodes[2].classList.add('end')
+function finishGame() {
+    const section = document.querySelector('section')    
+    section.remove()
+
+    const finishDiv = document.createElement('section')
+    finishDiv.classList.add('vitoria')
+    const buttonReplay = document.createElement('button')
+    const p = document.createElement('p')    
+    
+    buttonReplay.innerText = 'JOGAR NOVAMENTE'
+    buttonReplay.addEventListener('click', function() {
+        const section = document.querySelector('section')
+        section.remove()
+        selectGame() 
+        contador = 0
+        contadorDeJogadas.innerHTML    
+    })    
+    p.innerText = 'Você ganhou!'
+    finishDiv.appendChild(p)
+    finishDiv.appendChild(buttonReplay)    
+
+    body.appendChild(finishDiv)
+    
 }
-createBar()
 
-function createDisk (x) {
-    for(let i = 0; i < 3; i++){
-        let div = document.createElement('div');
-        main.childNodes[0].appendChild(div)
-    }
-    main.childNodes[0].children[0].classList.add('big_disk')
-    main.childNodes[0].children[1].classList.add('medium_disk')
-    main.childNodes[0].children[2].classList.add('small_disk')
+function checkForVictory() {
+    const lastTower = document.querySelector(`div[data-tower="2"]`)
+    if (lastTower.children.length !== totalDiscs) return;
+
+    finishGame();
 }
-createDisk ()
 
-main.addEventListener('click', function (event) {
-    let selectedDisk = event.target.parentNode.lastChild.classList.toggle('select')
-    console.log(selectedDisk)
-    if(selectedDisk === true){
-        choiceBar(event.target);
+function move(e) {
+    const towerClicked = e.target
+    const towerNumber = towerClicked.getAttribute('data-tower')
+    const hasChildren = towerClicked.children.length > 0
+
+    if (!origin) {
+        if (!hasChildren) return;
+        origin = towerNumber
+        towerClicked.children[0].classList.toggle('disc-selected')
+        return;
     }
-});
 
-function choiceBar (x) {
+    if (towerNumber === origin) return;
 
-    if(x !== event.target.parentNode){
-        console.log(event.target.parentNode.appendChild(x))
+    const originTower = document.querySelector(`div[data-tower="${origin}"]`)
+
+    if (!hasChildren) {
+        moveDisc(originTower, towerClicked)
+        origin = null
+    } else {
+
+        const firstOriginWeight = originTower.children[0].getAttribute('data-weight')
+        const firstTargetWeight = towerClicked.children[0].getAttribute('data-weight')
+
+        if (firstTargetWeight < firstOriginWeight) {
+            origin = null;
+            originTower.children[0].classList.toggle('disc-selected')
+            return;
+        }
+        moveDisc(originTower, towerClicked)
+        origin = null
+
+    }
+
+    checkForVictory()
+}
+
+function moveDisc(towerOrigin, towerTarget) {
+    const disc = towerOrigin.children[0]
+    const weight = disc.getAttribute('data-weight')
+    const color = disc.style.backgroundColor
+    disc.remove()
+
+    createDisc(weight, color, towerTarget)
+    contador ++
+    contadorDeJogadas.innerText = ' Movimentos: ' + contador
+    console.log(contador)
+}
+
+function createTower(number, board) {
+    const tower = document.createElement('div')
+    tower.setAttribute('data-tower', number)
+    tower.classList.add('tower')
+    tower.addEventListener('click', move)
+    board.appendChild(tower)
+}
+
+function createDisc(weight, color, tower) {
+    const disc = document.createElement('div')
+    disc.setAttribute('data-weight', weight)
+    disc.style.width = 20 * weight + "%"
+    disc.style.backgroundColor = color
+    disc.innerText = weight
+    disc.addEventListener('click', function(e) { e.stopPropagation() })
+    disc.classList.add('disc')
+    tower.insertBefore(disc, tower.firstChild)
+}
+
+function startGame(discs) {
+
+    const colors = ['#b30000', '#cc0000', '#e60000', '#ff0000', '#ff1a1a'].reverse()
+
+    const mainBoard = document.createElement('section')
+    mainBoard.classList.add('board')
+    body.appendChild(mainBoard)
+
+    for (let index = 0; index < 3; index++) {
+        createTower(index, mainBoard)
+    }
+
+    const tower1 = document.querySelector('div[data-tower="0"]')
+    for (let index = discs; index >= 1; index--) {
+        createDisc(index, colors[index - 1], tower1)
     }
 }
+
+function createButton(name, discs, section) {
+    const button = document.createElement('button')
+    button.setAttribute('data-discs', discs)
+    button.innerText = name
+    button.addEventListener('click', function(e) {
+        const discs = e.target.getAttribute('data-discs')
+        const section = document.querySelector('section')
+        section.remove()
+        totalDiscs = parseInt(discs);
+        startGame(discs)
+    })
+    section.appendChild(button)
+}
+
+function selectGame() {
+    const section = document.createElement('section')
+    body.appendChild(section)
+    section.classList.add('SelectDificult')
+    const p = document.createElement('p')
+    p.classList.add('dificuldade')
+    section.appendChild(p)
+    p.innerText = 'Selecione a dificuldade do jogo'
+    
+    createButton('Fácil', 3, section)
+    createButton('Médio', 4, section)
+    createButton('Difícil', 5, section)
+
+}
+
+
+// JOGO COMEÇA AQUI
+selectGame()
