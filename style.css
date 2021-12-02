@@ -8,6 +8,7 @@ body {
 }
 .contadorDeJogadas{
     background-color: turquoise;
+    height: 20px;
     width: 150px;
     text-align: center;
 }
@@ -110,4 +111,25 @@ body {
 .disc-selected {
     border: 2px dotted black;
     margin-bottom: 20px;
+}
+
+@media screen and (min-width: 768px) {
+    .tower::after {
+        width: 20px;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .tower::after {
+        height: 400px;
+        width: 30px;
+    }
+
+    .board {
+       height: 700px;
+    }
+
+    .disc {
+        height: 40px;
+    }
 }
