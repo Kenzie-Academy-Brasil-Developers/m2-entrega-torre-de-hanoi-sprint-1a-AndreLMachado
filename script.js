@@ -6,6 +6,21 @@ const contadorDeJogadas = document.createElement('p')
 contadorDeJogadas.classList.add('contadorDeJogadas')
 body.appendChild(contadorDeJogadas)
 
+function resetGame(){
+const buttonReset = document.createElement('button')
+buttonReset.classList.add('restart')
+buttonReset.innerText = 'Restart'
+body.appendChild(buttonReset)
+buttonReset.addEventListener('click', function() {
+    const section = document.querySelector('section')
+    section.remove()
+    selectGame() 
+    contador = 0
+    contadorDeJogadas.innerText = 'Movimentos: ' + contador   
+})
+}
+resetGame()
+
 
 function finishGame() {
     const section = document.querySelector('section')    
@@ -22,15 +37,18 @@ function finishGame() {
         section.remove()
         selectGame() 
         contador = 0
-        contadorDeJogadas.innerHTML    
+        contadorDeJogadas.innerText = 'Movimentos: ' + contador        
     })    
     p.innerText = 'Você ganhou!'
     finishDiv.appendChild(p)
     finishDiv.appendChild(buttonReplay)    
 
-    body.appendChild(finishDiv)
-    
+    body.appendChild(finishDiv)    
 }
+
+
+
+
 
 function checkForVictory() {
     const lastTower = document.querySelector(`div[data-tower="2"]`)
@@ -151,7 +169,7 @@ function selectGame() {
     createButton('Fácil', 3, section)
     createButton('Médio', 4, section)
     createButton('Difícil', 5, section)
-
+    contadorDeJogadas.innerText = 'Movimentos: ' + contador  
 }
 
 

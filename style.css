@@ -5,19 +5,35 @@ body {
     background-image: url(img/torre.jpg);
     background-size: cover;
     background-repeat: no-repeat;
+    height: 100vh;
 }
 .contadorDeJogadas{
+    display: flex;
+    align-items: center;
     background-color: turquoise;
-    height: 20px;
+    min-height: 25px;
+    height: 5%;
     width: 150px;
-    text-align: center;
+    justify-content: center; 
+    border-radius: 15px;
 }
+
+.restart {
+    background-color: turquoise;
+    min-height: 25px;
+    height: 5%;
+    width: 150px;
+    text-align: center; 
+    border-radius: 15px;
+}
+
 .SelectDificult{
-    height: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 70vh;
 }
 
 .SelectDificult button {
@@ -66,12 +82,13 @@ body {
 .board {
     background-color: rgba(255, 255, 224, 0.308);
     width: 100%;
-    height: 500px;
+    height: 70vh;
     border: 3px solid salmon;
     display: flex;
     padding: 0 5px;
     box-sizing: border-box;
-    margin-top: 100px;
+    margin-top: 15px;
+    margin-bottom: 10%;
 }
 
 .tower {
@@ -80,6 +97,7 @@ body {
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
+    height: 100%;
 }
 
 .tower-selected {
@@ -89,7 +107,7 @@ body {
 .tower::after {
     content: '.';
     width: 10px;
-    height: 300px;
+    height: 40%;
     border-radius: 10px 10px 0 0;
     position: absolute;
     z-index: 0;
@@ -100,7 +118,7 @@ body {
     width: 100%;
     background-color: red;
     border: 2px solid black;
-    height: 20px;
+    height: 5%;
     margin-bottom: 5px;
     position: relative;
     z-index: 1;
@@ -117,19 +135,14 @@ body {
     .tower::after {
         width: 20px;
     }
+    .board {
+    margin-top: 30px;
+    }
 }
 
 @media screen and (min-width: 1400px) {
     .tower::after {
-        height: 400px;
         width: 30px;
     }
 
-    .board {
-       height: 700px;
-    }
-
-    .disc {
-        height: 40px;
-    }
 }
